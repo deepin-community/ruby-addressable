@@ -1,0 +1,174 @@
+ruby-addressable (2.8.0-1) unstable; urgency=medium
+
+  * Team upload
+  * New upstream version 2.8.0
+
+ -- Sruthi Chandran <srud@debian.org>  Sun, 12 Sep 2021 23:03:29 +0530
+
+ruby-addressable (2.7.0-2) unstable; urgency=medium
+
+  * Team Upload
+
+  [ Debian Janitor ]
+  * Update standards version to 4.4.1, no changes needed.
+
+  [ Cédric Boutillier ]
+  * Update team name
+  * Add .gitattributes to keep unwanted files out of the source package
+
+  [ Debian Janitor ]
+  * Update watch file format version to 4.
+  * Set upstream metadata fields: Bug-Submit.
+  * Update standards version to 4.5.0, no changes needed.
+
+  [ Pirate Praveen ]
+  * Backport patch to Prevent ReDOS vuln on URI Template matching from new
+    upstream version (Closes: #990791) (Fixes: CVE-2021-32740)
+  * Bump Standards-Version to 4.5.1 (no changes needed)
+
+ -- Pirate Praveen <praveen@debian.org>  Thu, 08 Jul 2021 02:39:52 +0530
+
+ruby-addressable (2.7.0-1) unstable; urgency=medium
+
+  [ Utkarsh Gupta ]
+  * Add salsa-ci.yml
+
+  [ Cédric Boutillier ]
+  * New upstream version 2.7.0
+  * Trim trailing whitespace.
+  * Use secure copyright file specification URI.
+  * Move debian/watch to gemwatch.debian.net
+  * Bump Standards-Version to 4.4.0 (no changes needed)
+  * Drop compat file, rely on debhelper-compat and bump compat level to 12
+  * Add upstream/metadata
+  * Update minimal version in dependencies
+  * Refresh patches
+  * Use salsa.debian.org in Vcs-* fields
+
+ -- Cédric Boutillier <boutil@debian.org>  Sun, 15 Sep 2019 09:54:39 +0200
+
+ruby-addressable (2.5.2-1) unstable; urgency=medium
+
+  * Team upload
+  * New upstream version 2.5.2
+  * Bump debhelper compat to 11 and standards version to 4.1.3
+
+ -- Pirate Praveen <praveen@debian.org>  Sun, 18 Mar 2018 21:21:24 +0530
+
+ruby-addressable (2.5.1-2) unstable; urgency=medium
+
+  * Team upload.
+  * Reupload to unstable
+
+ -- Pirate Praveen <praveen@debian.org>  Thu, 27 Jul 2017 14:22:57 +0530
+
+ruby-addressable (2.5.1-1) experimental; urgency=medium
+
+  * Team upload
+  * New upstream release
+
+ -- Sruthi Chandran <srud@disroot.org>  Tue, 27 Jun 2017 12:04:09 +0530
+
+ruby-addressable (2.4.0-1) unstable; urgency=medium
+
+  * Imported Upstream version 2.4.0
+  * Bump debhelper compatibility level to 9
+  * Remove version in the gem2deb build-dependency
+  * Use https:// in Vcs-* fields
+  * Run wrap-and-sort on packaging files
+  * Update years and homepage in copyright file
+  * Bump Standards-Version to 3.9.8 (no changes needed)
+  * Refresh remove_rubygems_stuff.patch to remove also bundler usage
+
+ -- Cédric Boutillier <boutil@debian.org>  Sat, 04 Jun 2016 16:20:01 +0200
+
+ruby-addressable (2.3.8-1) unstable; urgency=medium
+
+  [ Lucas Nussbaum ]
+  * New upstream version.
+  * Refresh packaging:
+    + Bump Standards-Version to 3.9.6
+    + Update Homepage to point to github
+    + Update Vcs-Browser
+    + Add Testsuite field
+
+  [ Cédric Boutillier ]
+  * Build-depend on newer ruby-rspec and on ruby-rspec-its (Closes: #794133)
+
+ -- Cédric Boutillier <boutil@debian.org>  Sun, 09 Aug 2015 23:17:25 +0200
+
+ruby-addressable (2.3.6-1) unstable; urgency=medium
+
+  * Imported Upstream version 2.3.6
+  * Refresh remove_lib_from_loadpath.patch
+
+ -- Cédric Boutillier <boutil@debian.org>  Wed, 07 May 2014 23:51:51 +0200
+
+ruby-addressable (2.3.5-1) unstable; urgency=low
+
+  * Team upload.
+  * New upstream release. (Closes: #740794).
+  * Bump Standards-Version to 3.9.5. No changes were required.
+  * Refresh patches.
+  * Add Build-Depends on ruby-coveralls.
+
+ -- Miguel Landaeta <nomadium@debian.org>  Tue, 04 Mar 2014 18:10:58 -0300
+
+ruby-addressable (2.3.4-1) unstable; urgency=low
+
+  [ Christian Hofstaedtler ]
+  * Install CHANGELOG.md as upstream changelog
+
+  [ Cédric Boutillier ]
+  * New upstream version
+  * debian/control:
+    + use canonical URI in Vcs-* fields
+    + bump Standards-Version to 3.9.4 (no changes needed)
+    + add myself to Uploaders
+    + drop libaddressable-ruby* transitional packages
+    + depend on ruby instead of ruby1.8
+  * move unicode.data to /usr/share/ruby-addressable
+    + debian/rules: install file where needed
+    + debian/patches/move_unicode_data.patch:
+        fix path of unicode.data in the library
+    + debian/patches/remove_lib_from_loadpath.patch:
+        remove lib from the load path in the spec using unicode.data
+        to use the version of the library installed in debian/
+  * remove lintian overrides, about transitional packages
+
+ -- Cédric Boutillier <boutil@debian.org>  Tue, 04 Jun 2013 23:03:28 +0200
+
+ruby-addressable (2.2.8-1) unstable; urgency=low
+
+  * Team upload
+  * New upstream version
+  * Enable test suite. Build-depend on ruby-rspec, rake.
+  * Build against gem2deb >= 0.3.0
+  * Bump Standards-Version to 3.9.3 (no changes needed)
+  * Set priority of transitional packages to extra
+  * Improve a little bit the short description
+  * Convert debian/copyright to DEP-5 copyright-format/1.0
+  * Override lintian warning about duplicate description of transitional
+    packages
+  * Replace Conflicts: with Breaks: for dependency relations on old packages
+  * remove website/index.html from installed docs (not informative)
+
+ -- Cédric Boutillier <cedric.boutillier@gmail.com>  Fri, 29 Jun 2012 21:30:47 +0200
+
+ruby-addressable (2.2.6-1) unstable; urgency=low
+
+   * New upstream release
+   * Switch to gem2deb-based packaging. Rename source and binary package.
+   * debian/control
+       - Removed DM upload tag.
+       - Bumped the standard version.
+   * debian/copyright
+       - update copyright information.
+
+ -- Deepak Tripathi <deepak@debian.org>  Tue, 31 May 2011 14:51:45 +0530
+
+libaddressable-ruby (2.2.2-1) unstable; urgency=low
+
+   * Initial release (Closes: #594294)
+
+ -- Deepak Tripathi <deepak@debian.org>  Wed, 13 Oct 2010 22:13:02 +0530

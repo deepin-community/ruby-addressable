@@ -1,0 +1,18 @@
+#!/usr/bin/make -f
+
+export LANG=C.UTF-8
+export LC_ALL=C.UTF-8
+
+%:
+	dh $@ --buildsystem=ruby --with ruby
+
+override_dh_installchangelogs:
+	dh_installchangelogs CHANGELOG.md
+
+override_dh_auto_install:
+	dh_install data/unicode.data usr/share/ruby-addressable/
+	dh_auto_install
+
+override_dh_auto_clean:
+	dh_auto_clean
+	-rm -rf coverage/

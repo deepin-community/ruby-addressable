@@ -1,0 +1,16 @@
+Description: move unicode.data to /usr/share/ruby-addressable/
+Author: Cédric Boutillier <boutil@debian.org>
+Forwarded: no
+Last-Update: 2019-09-14
+
+--- a/lib/addressable/idna/pure.rb
++++ b/lib/addressable/idna/pure.rb
+@@ -35,7 +35,7 @@
+ 
+ 
+     UNICODE_TABLE = File.expand_path(
+-      File.join(File.dirname(__FILE__), '../../..', 'data/unicode.data')
++      File.join(File.dirname(__FILE__), '../../../../../', 'share/ruby-addressable/unicode.data')
+     )
+ 
+     ACE_PREFIX = "xn--"
