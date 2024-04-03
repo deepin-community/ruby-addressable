@@ -1,3 +1,39 @@
+ruby-addressable (2.8.5-1) unstable; urgency=medium
+
+  * New upstream version 2.8.5
+  * Refresh patches
+
+ -- Cédric Boutillier <boutil@debian.org>  Thu, 24 Aug 2023 18:54:01 +0200
+
+ruby-addressable (2.8.1-1) unstable; urgency=medium
+
+  [ Debian Janitor ]
+  * Remove constraints unnecessary since buster
+  * Update standards version to 4.6.1, no changes needed.
+
+  [ Cédric Boutillier ]
+  * New upstream version 2.8.1
+  * d/control: use ${ruby:Depends}, set Rules-Requires-Root: no, Drop XS-Ruby-*
+  * Remove obsolete part in remove_lib_from_loadpath.patch's Description
+  * Bump Standards-Version to 4.6.2 (no changes needed)
+
+ -- Cédric Boutillier <boutil@debian.org>  Sat, 04 Feb 2023 23:44:58 +0100
+
+ruby-addressable (2.8.0-3) unstable; urgency=medium
+
+  * Team upload.
+  * Drop ruby-rack-mount from build dependency (not needed anymore)
+
+ -- Pirate Praveen <praveen@debian.org>  Mon, 24 Jan 2022 16:41:06 +0530
+
+ruby-addressable (2.8.0-2) unstable; urgency=medium
+
+  * Team upload.
+  * Switch to gem-install layout for 'bundle install --local' compatibility
+  * Bump debhelper compatibility level to 13
+
+ -- Pirate Praveen <praveen@debian.org>  Sun, 23 Jan 2022 12:51:53 +0530
+
 ruby-addressable (2.8.0-1) unstable; urgency=medium
 
   * Team upload

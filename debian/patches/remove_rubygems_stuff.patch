@@ -1,10 +1,10 @@
 Description: Remove the use of rubygems and bundler in spec files
 Origin: vendor
-Last-Update: 2019-09-14
+Last-Update: 2023-08-24
 
 --- a/spec/addressable/idna_spec.rb
 +++ b/spec/addressable/idna_spec.rb
-@@ -19,7 +19,7 @@
+@@ -18,7 +18,7 @@
  require "spec_helper"
  
  # Have to use RubyGems to load the idn gem.
