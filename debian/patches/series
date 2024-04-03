@@ -1,3 +1,2 @@
 remove_rubygems_stuff.patch
-move_unicode_data.patch
 remove_lib_from_loadpath.patch

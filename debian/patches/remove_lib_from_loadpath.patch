@@ -1,14 +1,12 @@
 Description: remove lib/ from loadpath in spec using unicode.data
- so that it picks up the installed version of the library in debian/ with
- unicode.data at the right place.
- in complement to move_unicode_data.patch
+ so that it picks up the installed version of the library in debian/
 Author: Cédric Boutillier <boutil@debian.org>
 Forwarded: no
-Last-Update: 2019-09-14
+Last-Update: 2023-08-24
 
 --- a/spec/addressable/idna_spec.rb
 +++ b/spec/addressable/idna_spec.rb
-@@ -21,6 +21,7 @@
+@@ -20,6 +20,7 @@
  # Have to use RubyGems to load the idn gem.
  #require "rubygems"
  
