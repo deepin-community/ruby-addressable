@@ -20,15 +20,13 @@ additionally provides extensive support for IRIs and URI templates.
 TEXT
 
 PKG_FILES = FileList[
-    "lib/**/*", "spec/**/*", "vendor/**/*", "data/**/*",
-    "tasks/**/*",
-    "[A-Z]*", "Rakefile"
-].exclude(/pkg/).exclude(/database\.yml/).
-  exclude(/Gemfile\.lock/).exclude(/[_\.]git$/)
+    "data/**/*",
+    "lib/**/*.rb",
+    "CHANGELOG.md",
+    "LICENSE.txt",
+    "README.md",
+]
 
 task :default => "spec"
-
-WINDOWS = (RUBY_PLATFORM =~ /mswin|win32|mingw|bccwin|cygwin/) rescue false
-SUDO = WINDOWS ? '' : ('sudo' unless ENV['SUDOLESS'])
 
 Dir['tasks/**/*.rake'].each { |rake| load rake }

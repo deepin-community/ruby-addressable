@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# encoding:utf-8
 #--
 # Copyright (C) Bob Aman
 #
@@ -40,6 +39,8 @@ module Addressable
       "(?>(?:[#{variable_char_class}]|%[a-fA-F0-9][a-fA-F0-9])+)"
     RESERVED =
       "(?:[#{anything}]|%[a-fA-F0-9][a-fA-F0-9])"
+    RESERVED_NO_COMMA =
+      "(?:[#{anything.delete(',')}]|%[a-fA-F0-9][a-fA-F0-9])"
     UNRESERVED =
       "(?:[#{
         Addressable::URI::CharacterClasses::UNRESERVED
@@ -158,7 +159,7 @@ module Addressable
       #   the ::MatchData#[] behavior.
       #
       # @param [#to_int, nil] len
-      #   If provided, an array of values will be returend with the given
+      #   If provided, an array of values will be returned with the given
       #   parameter used as length.
       #
       # @return [Array, String, nil]
@@ -657,12 +658,12 @@ module Addressable
     def ordered_variable_defaults
       @ordered_variable_defaults ||= begin
         expansions, _ = parse_template_pattern(pattern)
-        expansions.map do |capture|
+        expansions.flat_map do |capture|
           _, _, varlist = *capture.match(EXPRESSION)
           varlist.split(',').map do |varspec|
             varspec[VARSPEC, 1]
           end
-        end.flatten
+        end
       end
     end
 
@@ -893,25 +894,24 @@ module Addressable
     # operator.
     #
     # @param [Hash, Array, String] value
-    #   Normalizes keys and values with IDNA#unicode_normalize_kc
+    #   Normalizes unicode keys and values with String#unicode_normalize (NFC)
     #
     # @return [Hash, Array, String] The normalized values
     def normalize_value(value)
-      unless value.is_a?(Hash)
-        value = value.respond_to?(:to_ary) ? value.to_ary : value.to_str
-      end
-
       # Handle unicode normalization
-      if value.kind_of?(Array)
-        value.map! { |val| Addressable::IDNA.unicode_normalize_kc(val) }
+      if value.respond_to?(:to_ary)
+        value.to_ary.map! { |val| normalize_value(val) }
       elsif value.kind_of?(Hash)
         value = value.inject({}) { |acc, (k, v)|
-          acc[Addressable::IDNA.unicode_normalize_kc(k)] =
-            Addressable::IDNA.unicode_normalize_kc(v)
+          acc[normalize_value(k)] = normalize_value(v)
           acc
         }
       else
-        value = Addressable::IDNA.unicode_normalize_kc(value)
+        value = value.to_s if !value.kind_of?(String)
+        if value.encoding != Encoding::UTF_8
+          value = value.dup.force_encoding(Encoding::UTF_8)
+        end
+        value = value.unicode_normalize(:nfc)
       end
       value
     end
@@ -987,7 +987,8 @@ module Addressable
         _, operator, varlist = *expansion.match(EXPRESSION)
         leader = Regexp.escape(LEADERS.fetch(operator, ''))
         joiner = Regexp.escape(JOINERS.fetch(operator, ','))
-        combined = varlist.split(',').map do |varspec|
+        varspecs = varlist.split(',')
+        combined = varspecs.map do |varspec|
           _, name, modifier = *varspec.match(VARSPEC)
 
           result = processor && processor.respond_to?(:match) ? processor.match(name) : nil
@@ -1013,7 +1014,15 @@ module Addressable
               "#{ UNRESERVED }*?"
             end
             if modifier == '*'
-              "(?<#{name}>#{group}(?:#{joiner}?#{group})*)?"
+              seg = case operator
+                    when '+', '#' then "#{RESERVED_NO_COMMA}*+"
+                    else group
+                    end
+              joiner_pattern = operator.nil? ? joiner : "#{joiner}?"
+              "(?<#{name}>#{seg}(?:#{joiner_pattern}#{seg})*)?"
+            elsif varspecs.size > 1 && (operator == '+' || operator == '#') &&
+                  varspec != varspecs.last
+              "(?<#{name}>#{RESERVED_NO_COMMA}*+)?"
             else
               "(?<#{name}>#{group})?"
             end
@@ -1023,7 +1032,7 @@ module Addressable
       end
 
       # Ensure that the regular expression matches the whole URI.
-      regexp_string = "^#{regexp_string}$"
+      regexp_string = "\\A#{regexp_string}\\z"
       return expansions, Regexp.new(regexp_string)
     end
 
