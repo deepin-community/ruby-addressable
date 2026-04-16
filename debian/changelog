@@ -1,3 +1,9 @@
+ruby-addressable (2.9.0-1) unstable; urgency=medium
+
+  * New upstream version 2.9.0 (Fix CVE-2026-35611)
+
+ -- deepin-ci-robot <packages@deepin.org>  Fri, 17 Apr 2026 01:27:59 +0800
+
 ruby-addressable (2.8.0-1) unstable; urgency=medium
 
   * Team upload

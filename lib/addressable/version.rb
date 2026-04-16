@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# encoding:utf-8
 #--
 # Copyright (C) Bob Aman
 #
@@ -23,7 +22,7 @@ if !defined?(Addressable::VERSION)
   module Addressable
     module VERSION
       MAJOR = 2
-      MINOR = 8
+      MINOR = 9
       TINY  = 0
 
       STRING = [MAJOR, MINOR, TINY].join('.')
